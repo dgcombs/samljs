@@ -1,0 +1,13 @@
+{
+  "name":"SAMLJS",
+	"version":"0.1",
+	"description":"Create a SAML Assertion",
+	"icons":{"128":"/images/icon_128.png"},
+	"background_page":"bg.html",
+	"permissions":["http://*.google.com/","https://*.google.com/"],
+	"browser_action": {
+		"default_title":"",
+		"default_icon":"/images/icon_19.png",
+		"default_popup":"CreateAssertion.html"
+	}
+}

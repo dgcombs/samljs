@@ -1,0 +1,12 @@
+http://www.movable-type.co.uk/scripts/aes.html
+
+http://www.tero.co.uk/des/code.php
+
+http://point-at-infinity.org/jsaes/
+
+http://etherhack.co.uk/symmetric/des_3des/des_3des.html
+
+**looks like a winner: http://code.google.com/p/jscryptolib/
+
+**maybe even better winner: http://bitwiseshiftleft.github.com/sjcl/
+

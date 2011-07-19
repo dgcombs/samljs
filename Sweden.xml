@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<regFeedDetl>
+  <cust>
+    <isPrimary>Yes</isPrimary>
+		<firstNmTxt>Bob</firstNmTxt>
+		<midInitTxt>G</midInitTxt>
+		<lastNmTxt>Smith</lastNmTxt>
+		<addrLine1Txt>603 South Market Street</addrLine1Txt>
+		<addrLine2Txt></addrLine2Txt>
+		<cityNm>Paw Paw</cityNm>
+		<postlStCd>IL</postlStCd>	
+		<zipCd>61353</zipCd>
+		<phoneNum>9997778888</phoneNum>
+		<emlAddrTxt>Bob.Smith@email.com</emlAddrTxt>
+    <tCId>307000</tCId>
+    <veh>
+		  <Vin>V123456789012890</Vin>
+		  <vehModelYr>2002</vehModelYr>
+		  <vehMakeNm>Ford</vehMakeNm>
+		  <vehModelNm>Mustang</vehModelNm>
+	  </veh>
+  </cust>
+  <cust>
+    <isPrimary></isPrimary>
+  	<firstNmTxt>Bob</firstNmTxt>
+		<midInitTxt>G</midInitTxt>
+		<lastNmTxt>Smith</lastNmTxt>
+		<addrLine1Txt>603 South Market Street</addrLine1Txt>
+		<addrLine2Txt></addrLine2Txt>
+		<cityNm>Paw Paw</cityNm>
+		<postlStCd>IL</postlStCd>	
+		<zipCd>61353</zipCd>
+		<phoneNum>9997778888</phoneNum>
+		<emlAddrTxt>Bob.Smith@email.com</emlAddrTxt>
+    <tCId>307001</tCId>
+    <veh>
+		  <Vin>V123456789012891</Vin>
+		  <vehModelYr>2003</vehModelYr>
+		  <vehMakeNm>Ford</vehMakeNm>
+		  <vehModelNm>Fairlane</vehModelNm>
+	  </veh>
+  </cust>
+</regFeedDetl>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<!-- Always force latest IE rendering engine -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>SAMLJS - Generate a SAML Assertion</title>
+	<meta name="description" content="Create a SAML Assertion using POST or SOAP">
+	<meta name="author" content="Dan McGinn-Combs">
+	<meta name="version" content="0.2.0">
+
+	<script src="js/base64.js"></script>
+	<script src="js/crypto.js"></script>
+	<script src="js/des.js"></script>
+
+	<script language="javascript">
+		// XML Base Template
+		var samlTemplate='<?xml version="1.0" encoding="UTF-8"?>';
+	</script>
+</head>
+<body>	
+	<h1>Generate a SAML 2.0 Assertion</h1>
+	<h2>To Do List</h2>
+	<ul>
+		<li>Update Date/Time Fields
+		<li>Update internal HTI addresses
+		<li>Sign the SAML Assertion
+	</ul>
+	<form name="SAMLForm" action="" method="POST">
+		<fieldset>
+			<legend>Assertion Definition</legend>
+			<input type="hidden" name="SAMLResponse"/>
+			<input type="hidden" name="tcID"/>
+			<table border=1>
+				<tr><td>Assertion Subject:</td><td><input type="text" name="anbr" value="0"/></td>
+				<tr><td>Assertion ID:</td><td><input type="text" name="assert" value="1"/></td>
+				<tr><td>Unsigned Assertion:</td><td><input type="radio" name="url" value="1"/> https://fedwb01i.hughestelematics.com/engine/Assertion</td>
+				<tr><td>Signed Assertion:</td><td><input type="radio" name="url" value="2"/> https://fedwb01i.hughestelematics.com/fed/sp/authnResponse20</td>
+				<tr><td colspan="2" align="center"><input type="button" onClick="submit_form();" value="Assert"></td>
+			</table>
+		</fieldset>
+	</form>
+</body>
+</html>
