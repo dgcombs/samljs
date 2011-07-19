@@ -23,30 +23,30 @@ function mkXML(text) {
 // Set node value -- i.e. <node>Parameter</node>
 // Set node parameter -- i.e. <node parameter = "this is a test"/>
 
-
-
 function submit_form() {
-	if(document.myform.url[0].checked == true) {
+	if(document.SAMLForm.url[0].checked == true) {
 		//Set Action URL, set TCID number and Assertion number
-		document.myform.action="https://fedwb01i.hughestelematics.com/engine/Assertion";
+		document.SAMLForm.action="https://fedwb01i.hughestelematics.com/Local/pnr.cgi";
 		var xmlDoc = mkXML(samlTemplate);
-		var x = xmlDoc.getElementsByTagName("NameID")[0].childNodes[0];
-		x.nodeValue=document.myform.anbr.value;
-		var y = xmlDoc.getElementsByTagName("Assertion")[0].childNodes[0];
-		y.nodeValue=document.myform.assert.value;
+		//var x = xmlDoc.getElementsByTagName("NameID")[0].childNodes[0];
+		//x.nodeValue=document.myform.anbr.value;
+		//var y = xmlDoc.getElementsByTagName("Assertion")[0].childNodes[0];
+		//y.nodeValue=document.SAMLForm.assert.value;
 		// extract STRING to XML for POST
-		//document.myform.SAMLResponse.value = base64Encode(XMLtoString(xmlDoc));
-		document.myform.SAMLResponse.value = XMLtoString(xmlDoc);
-	} else if(document.myform.url[1].checked == true) {
+		document.SAMLForm.SAMLResponse.value = base64Encode(XMLtoString(xmlDoc));
+		document.SAMLForm.SAMLResponse.value = XMLtoString(xmlDoc);
+	} else if(document.SAMLForm.url[1].checked == true) {
 		//Set Action URL, set TCID number and Assertion number
-		document.myform.action="https://fedwb01i.hughestelematics.com/fed/sp/authnResponse20?providerid=dss.sso.test.statefarm.com&returnurl=https://fedwb01i.hughestelematics.com/engine";
+		document.SAMLForm.action="https://fedwb01i.hughestelematics.com/Local/cwv.cgi";
 		var xmlDoc = mkXML(samlTemplate);
-		var x = xmlDoc.getElementsByTagName("NameID")[0].childNodes[0];
-		x.nodeValue=document.myform.anbr.value;
-		var y = xmlDoc.getElementsByTagName("Assertion")[0].childNodes[0];
-		y.nodeValue=document.myform.assert.value;
+		//var x = xmlDoc.getElementsByTagName("NameID")[0].childNodes[0];
+		//x.nodeValue=document.SAMLForm.anbr.value;
+		//var y = xmlDoc.getElementsByTagName("Assertion")[0].childNodes[0];
+		//y.nodeValue=document.SAMLForm.assert.value;
 		// extract STRING to XML for POST
-		document.myform.SAMLResponse.value = base64Encode(XMLtoString(xmlDoc));
+		document.SAMLForm.SAMLResponse.value = base64Encode(XMLtoString(xmlDoc));
 	}
-	document.myform.submit();
+	//document.SAMLForm.submit();
+	var createData = { "url":"http://www.novell.com"};
+	chrome.windows.create(createData);
 }
