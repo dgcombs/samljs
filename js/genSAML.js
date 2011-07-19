@@ -26,7 +26,7 @@ function mkXML(text) {
 function submit_form() {
 	if(document.SAMLForm.url[0].checked == true) {
 		//Set Action URL, set TCID number and Assertion number
-		document.SAMLForm.action="https://fedwb01i.hughestelematics.com/Local/pnr.cgi";
+		document.SAMLForm.action="https://fedwb01i.hughestelematics.com/local/pnr.cgi";
 		var xmlDoc = mkXML(samlTemplate);
 		//var x = xmlDoc.getElementsByTagName("NameID")[0].childNodes[0];
 		//x.nodeValue=document.myform.anbr.value;
@@ -37,7 +37,7 @@ function submit_form() {
 		document.SAMLForm.SAMLResponse.value = XMLtoString(xmlDoc);
 	} else if(document.SAMLForm.url[1].checked == true) {
 		//Set Action URL, set TCID number and Assertion number
-		document.SAMLForm.action="https://fedwb01i.hughestelematics.com/Local/cwv.cgi";
+		document.SAMLForm.action="https://fedwb01i.hughestelematics.com/local/cwv.cgi";
 		var xmlDoc = mkXML(samlTemplate);
 		//var x = xmlDoc.getElementsByTagName("NameID")[0].childNodes[0];
 		//x.nodeValue=document.SAMLForm.anbr.value;
@@ -46,7 +46,8 @@ function submit_form() {
 		// extract STRING to XML for POST
 		document.SAMLForm.SAMLResponse.value = base64Encode(XMLtoString(xmlDoc));
 	}
-	//document.SAMLForm.submit();
-	var createData = { "url":"http://www.novell.com"};
-	chrome.windows.create(createData);
+	document.SAMLForm.submit();
+	//var createData = { "url":"http://www.novell.com"};
+	//chrome.tabs.create({"url":"http://www.novell.com"});
+	//window.close();
 }
