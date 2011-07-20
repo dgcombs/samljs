@@ -31,7 +31,7 @@
 		<li>Update internal HTI addresses
 		<li>Sign the SAML Assertion
 	</ul>
-	<form name="SAMLForm" action="https://fedwb01i.hughestelematics.com/local/pnr.cgi" method="POST">
+	<form name="SAMLForm" action="https://fedwb01i.hughestelematics.com/local/pnr.cgi" method="POST" target="_blank">
 		<fieldset>
 			<legend>Assertion Definition</legend>
 			<input type="hidden" name="SAMLResponse"/>
@@ -41,10 +41,10 @@
 				<tr><td>Assertion ID:</td><td><input type="text" name="assert" value="1"/></td>
 				<tr><td>Unsigned Assertion:</td><td><input type="radio" name="url" value="1"/> Option 1</td>
 				<tr><td>Signed Assertion:</td><td><input type="radio" name="url" value="2"/> Option 2</td>
+				<!--
 				<tr><td colspan="2" align="center"><input type="submit" value="Assert"></td>
-				<!---
-				<tr><td colspan="2" align="center"><input type="button" onClick="submit_form();" value="Assert"></td>
 				-->
+				<tr><td colspan="2" align="center"><input type="button" onClick="submit_form();" value="Assert"></td>
 			</table>
 		</fieldset>
 	</form>

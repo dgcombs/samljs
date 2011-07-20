@@ -1,4 +1,5 @@
 function XMLtoString(elem){
+// Convert a DOM element to XML string
 	var serialized;
 	try {
 		// XMLSerializer exists in current Mozilla browsers
@@ -12,11 +13,23 @@ function XMLtoString(elem){
 }
 
 function mkXML(text) {
-	//turns xml string into XMLDOM -- Chrome only?
+	//turns xml string into XMLDOM
 	if (typeof DOMParser != "undefined") {
 		return (new DOMParser()).parseFromString(text, "text/xml");
 	}
-	}
+}
+/*
+** SAML Format
+** root XML
+** samlp:RESPONSE
+** saml:Issuer
+** samlp:Status -- samlp:StatusCode
+** saml:Assertion
+** saml:Issuer
+** saml:Subject -- saml:NameID -- saml:SubjectConfirmation -- saml:SubjectConfirmationData
+** saml:Conditions
+*/
+function appendNode() {}
 
 // Append Node -- append a node at the bottom
 // Insert Node -- Insert a node at the pointer
