@@ -1,23 +1,80 @@
-function XMLtoString(elem){
-// Convert a DOM element to XML string
-	var serialized;
-	try {
-		// XMLSerializer exists in current Mozilla browsers
-		serializer = new XMLSerializer();
-		serialized = serializer.serializeToString(elem);
-	} catch (e) {
-		// Internet Explorer has a different approach to serializing XML
-		serialized = elem.xml;
+/*
+** Many Thanks to O'Reilly Hacks
+** http://oreilly.com/hacks/
+** http://oreilly.com/pub/h/2127
+*/
+
+// XML writer with attributes and smart attribute quote escaping 
+function element(name,content,attributes){
+	var att_str = '';
+	if (attributes) { // tests false if this arg is missing!
+		att_str = formatAttributes(attributes)
 	}
-	return serialized;
+	var xml;
+	if (!content) {
+		xml='<' + name + att_str + '/>'
+	}
+	else {
+		xml='<' + name + att_str + '>' + content + '</'+name+'>'
+	}
+	return xml
 }
 
-function mkXML(text) {
-	//turns xml string into XMLDOM
-	if (typeof DOMParser != "undefined") {
-		return (new DOMParser()).parseFromString(text, "text/xml");
+var	APOS = "\'"
+	, QUOTE = '\"'
+	, ESCAPED_QUOTE = {}
+	//, ESCAPED_QUOTE[QUOTE] = '&quot;'
+	//, ESCAPED_QUOTE[APOS] = '&apos;';
+   
+/*
+   Format a dictionary of attributes into a string suitable
+   for inserting into the start tag of an element.  Be smart
+   about escaping embedded quotes in the attribute values.
+*/
+function formatAttributes(attributes) {
+	var att_value
+	, apos_pos, quot_pos
+	, use_quote, escape, quote_to_escape
+	, att_str
+	, re
+	, result = '';
+   
+	for (var att in attributes) {
+		att_value = attributes[att]
+        
+		// Find first quote marks if any
+		apos_pos = att_value.indexOf(APOS)
+		quot_pos = att_value.indexOf(QUOTE)
+       
+		// Determine which quote type to use around 
+		// the attribute value
+		if (apos_pos == -1 && quot_pos == -1) {
+			att_str = ' ' + att + "='" + att_value +  "'";
+			result += att_str;
+			continue
+		}
+        
+		// Prefer the single quote unless forced to use double
+		if (quot_pos != -1 && quot_pos < apos_pos) {
+			use_quote = APOS;
+		} else {
+			use_quote = QUOTE;
+		}
+   
+		// Figure out which kind of quote to escape
+		// Use nice dictionary instead of yucky if-else nests
+		escape = ESCAPED_QUOTE[use_quote];
+        
+		// Escape only the right kind of quote
+		re = new RegExp(use_quote,'g');
+		att_str = ' ' + att + '=' + use_quote + 
+			att_value.replace(re, escape) + use_quote;
+		result += att_str;
 	}
+	return result
 }
+
+
 /*
 ** SAML Format
 ** root XML
@@ -29,7 +86,10 @@ function mkXML(text) {
 ** saml:Subject -- saml:NameID -- saml:SubjectConfirmation -- saml:SubjectConfirmationData
 ** saml:Conditions
 */
-function appendNode() {}
+function appendNode(Document, nodeName) {
+	var link = Document.createElement(nodeName);
+	return link;
+	}
 
 // Append Node -- append a node at the bottom
 // Insert Node -- Insert a node at the pointer
@@ -37,29 +97,17 @@ function appendNode() {}
 // Set node parameter -- i.e. <node parameter = "this is a test"/>
 
 function submit_form() {
-	if(document.SAMLForm.url[0].checked == true) {
-		//Set Action URL, set TCID number and Assertion number
-		document.SAMLForm.action="https://fedwb01i.hughestelematics.com/local/pnr.cgi";
-		var xmlDoc = mkXML(samlTemplate);
-		//var x = xmlDoc.getElementsByTagName("NameID")[0].childNodes[0];
-		//x.nodeValue=document.myform.anbr.value;
-		//var y = xmlDoc.getElementsByTagName("Assertion")[0].childNodes[0];
-		//y.nodeValue=document.SAMLForm.assert.value;
-		// extract STRING to XML for POST
-		document.SAMLForm.SAMLResponse.value = base64Encode(XMLtoString(xmlDoc));
-		document.SAMLForm.SAMLResponse.value = XMLtoString(xmlDoc);
-	} else if(document.SAMLForm.url[1].checked == true) {
-		//Set Action URL, set TCID number and Assertion number
-		document.SAMLForm.action="https://fedwb01i.hughestelematics.com/local/cwv.cgi";
-		var xmlDoc = mkXML(samlTemplate);
-		//var x = xmlDoc.getElementsByTagName("NameID")[0].childNodes[0];
-		//x.nodeValue=document.SAMLForm.anbr.value;
-		//var y = xmlDoc.getElementsByTagName("Assertion")[0].childNodes[0];
-		//y.nodeValue=document.SAMLForm.assert.value;
-		// extract STRING to XML for POST
-		document.SAMLForm.SAMLResponse.value = base64Encode(XMLtoString(xmlDoc));
-	}
-	document.SAMLForm.submit();
+	//alert(samlTemplate);
+	//Set Action URL, set TCID number and Assertion number
+	var xmlDoc = element("saml:Assertion","this is an assertion value", {"saml":"assertion"});
+	//var xmlDoc = mkXML(SAMLtemplate)
+	//var assertion = xmlDoc.createElement("saml:Assertion");
+	//assertion.setAttribute('Version', '2.0');
+	//xmlDoc.getElementById("dan").appendChild(assertion);
+	//xmlDoc.childNode[0].insertBefore(assertion);
+	alert(xmlDoc);
+	//alert(document.SAMLForm.SAMLResponse.value);
+	//document.SAMLForm.submit();
 	//var createData = { "url":"http://www.novell.com"};
 	//chrome.tabs.create({"url":"http://www.novell.com"});
 	//window.close();
