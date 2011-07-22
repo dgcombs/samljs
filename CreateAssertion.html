@@ -14,7 +14,6 @@
 	<meta name="version" content="0.2.0">
 
 	<script src="js/base64.js"></script>
-	<script src="js/crypto.js"></script>
 	<script src="js/des.js"></script>
 	<script src="js/genSAML.js"></script>
 
@@ -31,16 +30,16 @@
 		<li>Update internal HTI addresses
 		<li>Sign the SAML Assertion
 	</ul>
-	<form name="SAMLForm" action="" method="POST" target="_blank">
+	<form name="SAMLForm" action="txt" method="POST" target="_blank">
 		<fieldset>
 			<legend>Assertion Definition</legend>
 			<input type="hidden" name="SAMLResponse"/>
 			<input type="hidden" name="tcID"/>
 			<table border=1>
-				<tr><td>Assertion Subject:</td><td><input type="text" name="anbr" value="0"/></td>
-				<tr><td>Assertion ID:</td><td><input type="text" name="assert" value="1"/></td>
-				<tr><td>Unsigned Assertion:</td><td><input type="radio" name="url" value="1"/> Option 1</td>
-				<tr><td>Signed Assertion:</td><td><input type="radio" name="url" value="2"/> Option 2</td>
+				<tr><td>Assertion Subject:</td><td><input type="text" name="subjectID" value="usually email"/></td>
+				<tr><td>Assertion ID:</td><td><input type="text" name="assertionID" value="0"/></td>
+				<tr><td>Assertion Target:</td><td><input type="text" name="targetID" value="target URL"/></td>
+				<tr><td>Issuer ID:</td><td><input type="text" name="IssuerID" value="issuer"/></td>
 				<tr><td colspan="2" align="center"><input type="button" onClick="submit_form();" value="Assert"></td>
 			</table>
 		</fieldset>

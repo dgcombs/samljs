@@ -22,9 +22,9 @@ function element(name,content,attributes){
 
 var	APOS = "\'"
 	, QUOTE = '\"'
-	, ESCAPED_QUOTE = {}
-	//, ESCAPED_QUOTE[QUOTE] = '&quot;'
-	//, ESCAPED_QUOTE[APOS] = '&apos;';
+	, ESCAPED_QUOTE = {};
+	ESCAPED_QUOTE[2] = '&quot;';
+	ESCAPED_QUOTE[APOS] = '&apos;';
    
 /*
    Format a dictionary of attributes into a string suitable
@@ -74,41 +74,40 @@ function formatAttributes(attributes) {
 	return result
 }
 
-
-/*
-** SAML Format
-** root XML
-** samlp:RESPONSE
-** saml:Issuer
-** samlp:Status -- samlp:StatusCode
-** saml:Assertion
-** saml:Issuer
-** saml:Subject -- saml:NameID -- saml:SubjectConfirmation -- saml:SubjectConfirmationData
-** saml:Conditions
-*/
-function appendNode(Document, nodeName) {
-	var link = Document.createElement(nodeName);
-	return link;
-	}
-
-// Append Node -- append a node at the bottom
-// Insert Node -- Insert a node at the pointer
-// Set node value -- i.e. <node>Parameter</node>
-// Set node parameter -- i.e. <node parameter = "this is a test"/>
+function createSAML() {
+	// Create the SAML expression using features from the SAMLForm
+	// first, get the current date/time and expiration date/time for this assertion
+	var d = new Date();
+	var thisInstant=d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes() + ":00Z";
+	d.setMinutes(d.getMinutes() + 10);
+	var nextInstant=d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes() + ":00Z";
+	
+	// set the Assertion Information
+	// Set Assertion ID parameter to form's assertionID
+	var assertionID = document.SAMLForm.assertionID.value;
+	var xmlSubject = element("saml:Subject",element("saml:NameID",document.SAMLForm.subjectID.value,{"Format":"urn:oasis:names:tc:SAML1.1:nameid-format:emailAddress","Version":"2.0","IssueInstant":thisInstant}));
+	var xmlIssuer = element("saml:Issuer",document.SAMLForm.IssuerID.value,{"Format":"urn:oasis:names:tc:SAML:2.0:nameid-format:entity"});
+	var xmlConditions = element("saml:Conditions","",{"NotBefore":thisInstant,"NotOnOrAfter":nextInstant});
+	var xmlAuthnContext = element("saml:AuthnContext",element("saml:AuthnContextClassRef","urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport",{}),{});
+	var xmlAuthnStatement = element("saml:AuthnStatement",xmlAuthnContext,{"AuthnInstant":thisInstant,"SessionIndex":"Some Big Number"});
+	var xmlAssertion = element("saml:Assertion",xmlSubject + xmlIssuer + xmlConditions + xmlAuthnStatement,{"xmlns:saml":"urn:oasis:names:tc:SAML:2.0:assertion","ID":document.SAMLForm.assertionID.value,"Version":"2.0"});
+	var xmlResponse = element("samlp:Response",xmlAssertion,{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
+	return xmlResponse;
+}
 
 function submit_form() {
-	//alert(samlTemplate);
-	//Set Action URL, set TCID number and Assertion number
-	var xmlDoc = element("saml:Assertion","this is an assertion value", {"saml":"assertion"});
-	//var xmlDoc = mkXML(SAMLtemplate)
-	//var assertion = xmlDoc.createElement("saml:Assertion");
-	//assertion.setAttribute('Version', '2.0');
-	//xmlDoc.getElementById("dan").appendChild(assertion);
-	//xmlDoc.childNode[0].insertBefore(assertion);
-	alert(xmlDoc);
-	//alert(document.SAMLForm.SAMLResponse.value);
-	//document.SAMLForm.submit();
-	//var createData = { "url":"http://www.novell.com"};
-	//chrome.tabs.create({"url":"http://www.novell.com"});
+	// set Action for URL
+	//document.SAMLForm.action=document.SAMLFormat.targetID.value;
+	//document.SAMLForm.action="https://fedwb01i.hughestelematics.com/local/pnr.cgi";
+	document.SAMLForm.action="https://fedwb01i.hughestelematics.com/local/pnr.cgi";
+	var SAMLResponse = createSAML();
+	alert(SAMLResponse);
+	var myIV = "";
+	var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI";
+	SAMLResponse=des (key, SAMLResponse, true, 1, myIV, 0)
+	SAMLResponse=Base64.encode(SAMLResponse);
+	alert(SAMLResponse);
+	document.SAMLForm.SAMLResponse.value=SAMLResponse;
+	document.SAMLForm.submit();
 	//window.close();
 }
