@@ -99,14 +99,15 @@ function submit_form() {
 	// set Action for URL
 	//document.SAMLForm.action=document.SAMLFormat.targetID.value;
 	//document.SAMLForm.action="https://fedwb01i.hughestelematics.com/local/pnr.cgi";
-	document.SAMLForm.action="https://fedwb01i.hughestelematics.com/local/pnr.cgi";
+	//document.SAMLForm.action="https://fedwb01i.hughestelematics.com/engine/Assertion";
+	document.SAMLForm.action="http://localhost:8080/Engine/Assertion";
 	var SAMLResponse = createSAML();
 	alert(SAMLResponse);
 	var myIV = "";
 	var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI";
 	SAMLResponse=des (key, SAMLResponse, true, 1, myIV, 0)
 	SAMLResponse=Base64.encode(SAMLResponse);
-	alert(SAMLResponse);
+	console.log(SAMLResponse);
 	document.SAMLForm.SAMLResponse.value=SAMLResponse;
 	document.SAMLForm.submit();
 	//window.close();

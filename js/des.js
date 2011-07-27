@@ -195,24 +195,3 @@ function des_createKeys (key) {
   //return the keys we've created
   return keys;
 } //end of des_createKeys
-
-
-
-////////////////////////////// TEST //////////////////////////////
-//function stringToHex (s) {
-//  var r = "0x";
-//  var hexes = new Array ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
-//  for (var i=0; i<s.length; i++) {r += hexes [s.charCodeAt(i) >> 4] + hexes [s.charCodeAt(i) & 0xf];}
-//  return r;
-//}
-//
-//function hexToString (h) {
-//  var r = "";
-//  for (var i= (h.substr(0, 2)=="0x")?2:0; i<h.length; i+=2) {r += String.fromCharCode (parseInt (h.substr (i, 2), 16));}
-//  return r;
-//}
-//
-//var key = "this is a 24 byte key !!";
-//var message = "This is a test message";
-//var ciphertext = des (key, message, 1, 0);
-//console.log ("DES Test: " + stringToHex (ciphertext));

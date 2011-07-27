@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<!-- Always force latest IE rendering engine -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>Test DES Encryption</title>
+	<meta name="description" content="Test DES encryption JAVA vs JS">
+	<meta name="author" content="Dan McGinn-Combs">
+	<meta name="version" content="0.2.0">
+	<script src="js/base64.js"></script>
+	<script src="js/des.js"></script>
+	<script language="javascript">
+		// Test DES
+		function doDES(key, text) {
+			var myIV = "";
+			document.encForm.decText.value=des (key,Base64.decode(text),false,1,myIV, 0);
+		}
+	</script>
+</head>
+<body>
+<H1>Testing DES Encryption/Decryption</H1>
+	<form name="encForm" action="txt" method="POST" target="_blank">
+		<fieldset>
+			<legend>Encryption Testing</legend>
+			<table border=1>
+				<tr><td>Encryption Key (Base64 Encoded):</td><td><input type="text" name="encKey" value="R3IzM25AbmRCbHVlRzBibGluTkd1dHQk"/></td>
+				<tr><td>Text to be Decrypted (Base64 Encoded):</td><td><input type="text" name="encText" value="F/gx9OEz7WeRF+z6VlApjG6cI+e74aju"/></td>
+				<tr><td>Decrypted Text:</td><td><input type="text" name="decText" value=""/></td>
+				<tr><td colspan="2" align="center"><input type="button" onClick="doDES(document.encForm.encKey.value, document.encForm.encText.value);" value="Decrypt"></td>
+			</table>
+		</fieldset>
+	</form>
+</body>
+</html
