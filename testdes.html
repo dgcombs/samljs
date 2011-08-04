@@ -13,12 +13,17 @@
 	<meta name="author" content="Dan McGinn-Combs">
 	<meta name="version" content="0.2.0">
 	<script src="js/base64.js"></script>
+	<script src="js/sha1.js"></script>
+	<script src="js/pbkdf2.js"></script>
 	<script src="js/des.js"></script>
 	<script language="javascript">
 		// Test DES
 		function doDES(key, text) {
 			var myIV = "";
-			document.encForm.decText.value=des (key,Base64.decode(text),false,1,myIV, 0);
+			var des = new DES(Base64.decode(key), myIV);
+			var descrypted=des.decrypt(Base64.decode(text));
+			document.encForm.decText.value=descrypted;
+			//document.encForm.decText.value=des (key,Base64.decode(text),false,1,myIV, 0);
 		}
 	</script>
 </head>

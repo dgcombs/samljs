@@ -15,6 +15,7 @@
 
 	<script src="js/base64.js"></script>
 	<script src="js/des.js"></script>
+	<script src="js/genXML.js"></script>
 	<script src="js/genSAML.js"></script>
 
 	<script language="javascript">
@@ -25,9 +26,21 @@
 <body>	
 	<h1>Generate a SAML 2.0 Assertion</h1>
 	<h2>To Do List</h2>
+	<!--
+	* Common Assertion elements consist of:
+	** Issuer
+	** Subject
+	** Conditions
+	* Assertion Statements
+	** AuthnStatement
+	**AuthzDecisionStatement
+	**AttributeStatement
+	* Encrypted Assertions identified by
+	** EncryptedAssertions
+	** EncryptedKey
+	-->
 	<ul>
-		<li>Update Date/Time Fields
-		<li>Update internal HTI addresses
+		<li>Encrypt SAML sections
 		<li>Sign the SAML Assertion
 	</ul>
 	<form name="SAMLForm" action="txt" method="POST" target="_blank">
@@ -36,11 +49,22 @@
 			<input type="hidden" name="SAMLResponse"/>
 			<input type="hidden" name="tcID"/>
 			<table border=1>
-				<tr><td>Assertion Subject:</td><td><input type="text" name="subjectID" value="usually email"/></td>
-				<tr><td>Assertion ID:</td><td><input type="text" name="assertionID" value="0"/></td>
-				<tr><td>Assertion Target:</td><td><input type="text" name="targetID" value="target URL"/></td>
-				<tr><td>Issuer ID:</td><td><input type="text" name="IssuerID" value="issuer"/></td>
-				<tr><td colspan="2" align="center"><input type="button" onClick="submit_form();" value="Assert"></td>
+				<tr><td>Assertion ID:</td><td><input type="text" name="assertionID" value="0"/></td></tr>
+				<tr><td>Assertion Subject:</td><td><input type="text" name="subjectID" value="usually email"/></td></tr>
+				<tr><td>Issuer ID:</td><td><input type="text" name="IssuerID" value="issuer"/></td></tr>
+				<tr><td>Assertion Target:</td><td><input type="text" name="targetID" value="target URL"/></td></tr>
+				<tr><td>Sign:</td><td><input type="radio" name="Sign" value="assertion">Assertion<br/>
+													<input type="radio" name="Sign" value="response">Response</td></tr>
+				<tr><td>Encrypt</td><td><input type="radio" name="encryptQ" value="assertion">Assertion<br/>
+													<input type="radio" name="encryptQ" value="response">Response</td></tr>
+				<tr><td>Encrypt:</td><td><select name="Encrypt">
+						<option value="None" selected="selected">None</option>
+						<option value="DES">DES</option>
+						<option value="3DES">3DES</option>
+						<option value="TEA" >TEA</option>
+						<option value="AES">AES</option></select>
+				<tr><td>Encryption Key:</td><td><input type="text" name="encryptionKey" value=""/></td></tr>
+				<tr><td colspan="2" align="center"><input type="button" onClick="submit_form();" value="Assert"></td></tr>
 			</table>
 		</fieldset>
 	</form>

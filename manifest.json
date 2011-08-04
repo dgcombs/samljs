@@ -3,7 +3,6 @@
 	, "version":"0.1"
 	, "description":"Create a SAML Assertion"
 	, "icons":{"19":"/images/SFBM-19.png"
-				, "16":"/images/SFBM-16.png"
 				, "48":"/images/SFBM-48.png"
 				, "128":"/images/SFBM-128.png"}
 	, "permissions":[
