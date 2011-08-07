@@ -28,8 +28,8 @@
 ** The goals include simplicity, clarity and accessiblity for those attempting to use
 ** this code to test SAML-based systems.
 */
-var thisInstant;
-var nextInstant;
+var thisInstant="txt";
+var nextInstant="txt";
 var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; //DES Key
 
 function createIssuer() {
@@ -50,6 +50,10 @@ function createAuthnContext() {
 	
 function createAuthnStatement() {
 	return element("saml:AuthnStatement",createAuthnContext(),{"AuthnInstant":thisInstant,"SessionIndex":"Some Big Number"});
+}
+
+function createAudienceRestriction() {
+	
 }
 
 function createConditions() {
@@ -81,11 +85,11 @@ function createAssertion() {
 }
 
 function createSAML() {
-	if document.SAMLForm.encryptQ.value == "response") {
+	if (document.SAMLForm.encryptQ.value == "response") {
 		switch (document.SAMLForm.Encrypt.value) {
 			case "DES":
 				var des = new DES(key,"");
-				return element("samlp:Response",Base64.encode(des.encrypt(createAssertion()),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
+				return element("samlp:Response",Base64.encode(des.encrypt(createAssertion()),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"}));
 				break;
 			case "AES":
 			case "TEA":
