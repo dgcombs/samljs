@@ -30,7 +30,8 @@
 */
 var thisInstant;
 var nextInstant;
-var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; //DES Key
+var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; // a DES Key
+//var key = ""; // another DES Key
 
 function createIssuer() {
 	// Create the XML expression for the Issuer section
@@ -50,6 +51,9 @@ function createAuthnContext() {
 	
 function createAuthnStatement() {
 	return element("saml:AuthnStatement",createAuthnContext(),{"AuthnInstant":thisInstant,"SessionIndex":"Some Big Number"});
+}
+
+function createAudienceRestriction() {
 }
 
 function createConditions() {
@@ -81,11 +85,11 @@ function createAssertion() {
 }
 
 function createSAML() {
-	if document.SAMLForm.encryptQ.value == "response") {
+	if (document.SAMLForm.encryptQ.value == "response") {
 		switch (document.SAMLForm.Encrypt.value) {
 			case "DES":
 				var des = new DES(key,"");
-				return element("samlp:Response",Base64.encode(des.encrypt(createAssertion()),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
+				return element("samlp:Response",Base64.encode(des.encrypt(createAssertion())),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
 				break;
 			case "AES":
 			case "TEA":
@@ -101,11 +105,12 @@ function createSAML() {
 function submit_form() {
 	// first, get the current date/time and expiration date/time for this assertion
 	var d = new Date();
-	var thisInstant=d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes() + ":00Z";
+	thisInstant=d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes() + ":00Z";
 	d.setMinutes(d.getMinutes() + 10);
-	var nextInstant=d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes() + ":00Z";
+	nextInstant=d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes() + ":00Z";
 	// set Action for URL
 	document.SAMLForm.action=document.SAMLForm.targetID.value;
+	key = document.SAMLForm.encryptionKey.value;
 	document.SAMLForm.SAMLResponse.value = createSAML();
 	document.SAMLForm.submit();
 }
