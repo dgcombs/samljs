@@ -28,10 +28,16 @@
 ** The goals include simplicity, clarity and accessiblity for those attempting to use
 ** this code to test SAML-based systems.
 */
+<<<<<<< HEAD
 var thisInstant;
 var nextInstant;
 var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; // a DES Key
 //var key = ""; // another DES Key
+=======
+var thisInstant="txt";
+var nextInstant="txt";
+var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; //DES Key
+>>>>>>> 224192975487e25b73d0ac20f1c0b656059b571c
 
 function createIssuer() {
 	// Create the XML expression for the Issuer section
@@ -54,6 +60,10 @@ function createAuthnStatement() {
 }
 
 function createAudienceRestriction() {
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 224192975487e25b73d0ac20f1c0b656059b571c
 }
 
 function createConditions() {
@@ -89,7 +99,11 @@ function createSAML() {
 		switch (document.SAMLForm.Encrypt.value) {
 			case "DES":
 				var des = new DES(key,"");
+<<<<<<< HEAD
 				return element("samlp:Response",Base64.encode(des.encrypt(createAssertion())),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
+=======
+				return element("samlp:Response",Base64.encode(des.encrypt(createAssertion()),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"}));
+>>>>>>> 224192975487e25b73d0ac20f1c0b656059b571c
 				break;
 			case "AES":
 			case "TEA":
