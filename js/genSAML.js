@@ -28,16 +28,15 @@
 ** The goals include simplicity, clarity and accessiblity for those attempting to use
 ** this code to test SAML-based systems.
 */
-<<<<<<< HEAD
+
 var thisInstant;
 var nextInstant;
 var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; // a DES Key
 //var key = ""; // another DES Key
-=======
+
 var thisInstant="txt";
 var nextInstant="txt";
 var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; //DES Key
->>>>>>> 224192975487e25b73d0ac20f1c0b656059b571c
 
 function createIssuer() {
 	// Create the XML expression for the Issuer section
@@ -60,10 +59,7 @@ function createAuthnStatement() {
 }
 
 function createAudienceRestriction() {
-<<<<<<< HEAD
-=======
-	
->>>>>>> 224192975487e25b73d0ac20f1c0b656059b571c
+
 }
 
 function createConditions() {
@@ -77,8 +73,8 @@ function createAssertion() {
 	** <element name="EncryptedAssertion" type="saml:EncryptedElementType"/>
 	*/
 	var assertionContents = createSubject() + createIssuer() + createConditions() + createAuthnStatement();
-	if (document.SAMLForm.encryptQ.value == "assertion") {
-		switch (document.SAMLForm.Encrypt.value) {
+	if (document.SAMLForm.Encrypt.value == "assertion") {
+		switch (document.SAMLForm.Algorithm.value) {
 			case "DES":
 				var des = new DES(key, "");
 				return element("saml:EncryptedAssertion",Base64.encode(des.encrypt(assertionContents)),{"xmlns:saml":"urn:oasis:names:tc:SAML:2.0:assertion","ID":document.SAMLForm.assertionID.value,"Version":"2.0"});
@@ -95,15 +91,11 @@ function createAssertion() {
 }
 
 function createSAML() {
-	if (document.SAMLForm.encryptQ.value == "response") {
-		switch (document.SAMLForm.Encrypt.value) {
+	if (document.SAMLForm.Encrypt.value == "response") {
+		switch (document.SAMLForm.Algorithm.value) {
 			case "DES":
 				var des = new DES(key,"");
-<<<<<<< HEAD
 				return element("samlp:Response",Base64.encode(des.encrypt(createAssertion())),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
-=======
-				return element("samlp:Response",Base64.encode(des.encrypt(createAssertion()),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"}));
->>>>>>> 224192975487e25b73d0ac20f1c0b656059b571c
 				break;
 			case "AES":
 			case "TEA":
@@ -124,7 +116,9 @@ function submit_form() {
 	nextInstant=d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes() + ":00Z";
 	// set Action for URL
 	document.SAMLForm.action=document.SAMLForm.targetID.value;
-	key = document.SAMLForm.encryptionKey.value;
+	key = document.SAMLForm.EncryptKey.value;
 	document.SAMLForm.SAMLResponse.value = createSAML();
+	// Remove extraneous form variables
+	//document.SAMLForm.Algorithm.remove();
 	document.SAMLForm.submit();
 }

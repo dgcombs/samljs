@@ -56,15 +56,15 @@
 				<tr><td>Sign:</td><td><input type="radio" name="Sign" value="assertion">Assertion<br/>
 													<input type="radio" name="Sign" value="response">Response</td></tr>
 -->
-				<tr><td>Encrypt</td><td><input type="radio" name="encryptQ" value="assertion">Assertion<br/>
-													<input type="radio" name="encryptQ" value="response">Response</td></tr>
-				<tr><td>Encrypt:</td><td><select name="Encrypt">
+				<tr><td>Encrypt</td><td><select name="Encrypt">
+													<option value="response" selected="selected">Response</option>
+													<option value="assertion">Assertion</td></tr>
+				<tr><td>Encrypt:</td><td><select name="Algorithm">
 						<option value="None" selected="selected">None</option>
 						<option value="DES">DES</option>
-						<option value="3DES">3DES</option>
 						<option value="TEA" >TEA</option>
 						<option value="AES">AES</option></select>
-				<tr><td>Encryption Key:</td><td><input type="text" name="encryptionKey" value=""/></td></tr>
+				<tr><td>Encryption Key:</td><td><input type="text" name="EncryptKey" value=""/></td></tr>
 				<tr><td colspan="2" align="center"><input type="button" onClick="submit_form();" value="Assert"></td></tr>
 			</table>
 		</fieldset>
