@@ -34,10 +34,6 @@ var nextInstant;
 var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; // a DES Key
 //var key = ""; // another DES Key
 
-var thisInstant="txt";
-var nextInstant="txt";
-var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; //DES Key
-
 function createIssuer() {
 	// Create the XML expression for the Issuer section
 	return element("saml:Issuer",document.SAMLForm.IssuerID.value,{"Format":"urn:oasis:names:tc:SAML:2.0:nameid-format:entity"});
@@ -103,7 +99,7 @@ function createSAML() {
 				return element("samlp:Response",createAssertion(),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
 				break;
 		}
-	} else {
+	} else if (document.SAMLForm.Encrypt.value=="none") {
 		return element("samlp:Response",createAssertion(),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
 	}
 }
