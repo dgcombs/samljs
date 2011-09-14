@@ -110,7 +110,7 @@ function say(x){ WScript.Echo(x); }
     // initialize the DES "class"
     DES = function(key, iv) {
         this.__version = "1.0";
-        this.key = key;
+        this.key = Base64.decode(key);
         this.iv = iv || "\0\0\0\0\0\0\0\0"; // used only for CBC mode?
         this.padding = DesPadding.PKCS7;
         this.mode = DesCryptoMode.CBC;

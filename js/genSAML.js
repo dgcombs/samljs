@@ -34,10 +34,6 @@ var nextInstant;
 var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; // a DES Key
 //var key = ""; // another DES Key
 
-var thisInstant="txt";
-var nextInstant="txt";
-var key="JpKJLO2qaMkgEs4VFYEX+eYnn0J6LXXI"; //DES Key
-
 function createIssuer() {
 	// Create the XML expression for the Issuer section
 	return element("saml:Issuer",document.SAMLForm.IssuerID.value,{"Format":"urn:oasis:names:tc:SAML:2.0:nameid-format:entity"});
@@ -103,8 +99,20 @@ function createSAML() {
 				return element("samlp:Response",createAssertion(),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
 				break;
 		}
-	} else {
+	} else if (document.SAMLForm.Encrypt.value == "none") {
 		return element("samlp:Response",createAssertion(),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
+	} else if (document.SAMLForm.Encrypt.value == "all") {
+		switch (document.SAMLForm.Algorithm.value) {
+			case "DES":
+				var des = new DES(key,"");
+				return Base64.encode(des.encrypt(element("samlp:Response",createAssertion(),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"})));
+				break;
+			case "AES":
+			case "TEA":
+			default:
+				return element("samlp:Response",createAssertion(),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
+				break;
+		}
 	}
 }
 
@@ -116,9 +124,9 @@ function submit_form() {
 	nextInstant=d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate() + "T" + d.getHours() + ":" + d.getMinutes() + ":00Z";
 	// set Action for URL
 	document.SAMLForm.action=document.SAMLForm.targetID.value;
-	key = document.SAMLForm.EncryptKey.value;
+	//key = document.SAMLForm.EncryptKey.value; // leave the default value for now
 	document.SAMLForm.SAMLResponse.value = createSAML();
-	// Remove extraneous form variables
+	// Remove extraneous form variables  - I wish!
 	//document.SAMLForm.Algorithm.remove();
 	document.SAMLForm.submit();
 }
