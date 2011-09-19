@@ -99,7 +99,11 @@ function createSAML() {
 				return element("samlp:Response",createAssertion(),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
 				break;
 		}
+<<<<<<< HEAD
 	} else if (document.SAMLForm.Encrypt.value == "none") {
+=======
+	} else if (document.SAMLForm.Encrypt.value=="none") {
+>>>>>>> 64188796ccf003d1c0a68cfcc78d0dd3fe76b1c9
 		return element("samlp:Response",createAssertion(),{"xmlns:samlp":"urn:oasis:names:tc:SAL:2.0:protocol","ID":"Some Big Number","IssueInstant":thisInstant,"Version":"2.0"});
 	} else if (document.SAMLForm.Encrypt.value == "all") {
 		switch (document.SAMLForm.Algorithm.value) {
