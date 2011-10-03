@@ -1,6 +1,6 @@
 # README for samljs.
 
-The effort for this came from a miserable experience implementing non-standard federated identity.
+The effort for this came from a miserable experience implementing non-standard federated identity using SAML 2.0
 
 The idP wrote their end in Java from scratch. They created their metadata file using notepad. We were never able to successfully synchronize signatures with the Oracle Federation.
 
